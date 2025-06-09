@@ -28,10 +28,9 @@ public class GameManager : Singleton<GameManager>
 
     public void StartGame()
     {
-        if(uiManager != null)
-        uiManager.SetPlayGame();
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1.0f;
+        uiManager.SetPlayGame();
     }
 
     public void LoadUI()

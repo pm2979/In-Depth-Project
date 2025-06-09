@@ -6,6 +6,7 @@ public class PlayerComboAttackState : PlayerAttackState
 {
     private bool alreadyAppliedCombo;
     private bool alreadyApplyForce;
+    private bool alreadyAppliedDealing;
 
     AttackInfoData attackInfoData;
 
@@ -20,6 +21,7 @@ public class PlayerComboAttackState : PlayerAttackState
 
         alreadyAppliedCombo = false;
         alreadyApplyForce = false;
+        alreadyAppliedDealing = false;
 
         int comboindex = stateMachine.ComboIndex;
         attackInfoData = stateMachine.Player.Data.AttackData.GetAttackInfoData(comboindex);
@@ -59,6 +61,19 @@ public class PlayerComboAttackState : PlayerAttackState
                 // ´ïÇÎ ½Ãµµ
                 TryApplyForce();
             }
+
+            if (!alreadyAppliedDealing && norlizedTime >= attackInfoData.Dealing_Start_TransitionTime)
+            {
+                stateMachine.Player.Weapon.SetAttack(attackInfoData.Damage, attackInfoData.Force);
+                stateMachine.Player.Weapon.gameObject.SetActive(true);
+                alreadyAppliedDealing = true;
+            }
+
+            if (alreadyAppliedDealing && norlizedTime >= attackInfoData.Dealing_End_TransitionTime)
+            {
+                stateMachine.Player.Weapon.gameObject.SetActive(false);
+            }
+
         }
         else
         {
@@ -84,6 +99,8 @@ public class PlayerComboAttackState : PlayerAttackState
         if(!stateMachine.IsAttacking) return;
 
         alreadyAppliedCombo = true;
+
+        
     }
 
     private void TryApplyForce()

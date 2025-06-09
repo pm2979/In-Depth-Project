@@ -12,6 +12,16 @@ public class GameUI : BaseUI
         //UpdateHPSlider(1);
     }
 
+    private void OnEnable()
+    {
+        EventBus.Subscribe(EventType.HPUI, UpdateHPSlider);
+    }
+
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe(EventType.HPUI, UpdateHPSlider);
+    }
+
     public void UpdateHPSlider(float percentage)
     {
         hpSlider.value = percentage;

@@ -3,11 +3,11 @@ using UnityEngine.Events;
 
 public class EventBus
 {
-    private static readonly IDictionary<EventType, UnityEvent> Event = new Dictionary<EventType, UnityEvent>();
+    private static readonly IDictionary<EventType, UnityEvent<float>> Event = new Dictionary<EventType, UnityEvent<float>>();
 
-    public static void Subscribe(EventType eventType, UnityAction listener) // 备刀
+    public static void Subscribe(EventType eventType, UnityAction<float> listener) // 备刀
     {
-        UnityEvent thisEvent;
+        UnityEvent<float> thisEvent;
 
         if (Event.TryGetValue(eventType, out thisEvent))
         {
@@ -15,15 +15,15 @@ public class EventBus
         }
         else
         {
-            thisEvent = new UnityEvent();
+            thisEvent = new UnityEvent<float>();
             thisEvent.AddListener(listener);
             Event.Add(eventType, thisEvent);
         }
     }
 
-    public static void Unsubscribe(EventType eventType, UnityAction listener) // 备刀 秦力
+    public static void Unsubscribe(EventType eventType, UnityAction<float> listener) // 备刀 秦力
     {
-        UnityEvent thisEvent;
+        UnityEvent<float> thisEvent;
 
         if (Event.TryGetValue(eventType, out thisEvent))
         {
@@ -31,18 +31,18 @@ public class EventBus
         }
     }
 
-    public static void Publish(EventType type) // 角青
+    public static void Publish(EventType type , float amount) // 角青
     {
-        UnityEvent thisEvent;
+        UnityEvent<float> thisEvent;
 
         if (Event.TryGetValue(type, out thisEvent))
         {
-            thisEvent?.Invoke();
+            thisEvent?.Invoke(amount);
         }
     }
 }
 
 public enum EventType
 {
-   
+   HPUI,
 }

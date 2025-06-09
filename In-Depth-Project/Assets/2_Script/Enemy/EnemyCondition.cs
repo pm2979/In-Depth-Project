@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class EnemyCondition : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100; // 최대 체력
     private float health; // 현제 체력
@@ -27,7 +27,6 @@ public class Health : MonoBehaviour
             OnDie?.Invoke();
         }
 
-        EventBus.Publish(EventType.HPUI, health / maxHealth);
         Debug.Log(health);
     }
 }
