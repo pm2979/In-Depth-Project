@@ -23,8 +23,8 @@ public class PlayerIdleState : PlayerGroundState
     public override void Update()
     {
         base.Update();
-    
-        if(stateMachine.MovementInput != Vector2.zero)
+
+        if (stateMachine.MovementInput != Vector2.zero || stateMachine.Player.Target != null)
         {
             stateMachine.ChangeState(stateMachine.WalkState);
             return;

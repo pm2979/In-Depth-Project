@@ -33,7 +33,7 @@ public class PlayerComboAttackState : PlayerAttackState
         base.Exit();
         StopAnimaion(stateMachine.Player.AnimationData.ComboAttackParameterHash);
 
-        if(!alreadyAppliedCombo)
+        if (!alreadyAppliedCombo)
         {
             stateMachine.ComboIndex = 0;
         }
@@ -87,7 +87,6 @@ public class PlayerComboAttackState : PlayerAttackState
                 stateMachine.ChangeState(stateMachine.IdleState);
             }
         }
-
     }
 
     private void TryComboAttack()
@@ -96,7 +95,7 @@ public class PlayerComboAttackState : PlayerAttackState
 
         if(attackInfoData.ComboStateIndex == -1) return;
 
-        if(!stateMachine.IsAttacking) return;
+        if(!stateMachine.IsAttacking && !(stateMachine.Player.Target != null)) return;
 
         alreadyAppliedCombo = true;
 

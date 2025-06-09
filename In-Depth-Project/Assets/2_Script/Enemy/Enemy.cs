@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
 
     private EnemyStateMachine stateMachine;
 
+    public EnemyCondition Condition { get; private set; }
+
     [field: SerializeField] public Weapon Weapon { get; private set; }
 
     private void Awake()
@@ -23,13 +25,14 @@ public class Enemy : MonoBehaviour
         Animator = GetComponentInChildren<Animator>();
         Controller = GetComponent<CharacterController>();
         ForceReceiver = GetComponent<ForceReceiver>();
-
+        Condition = GetComponent<EnemyCondition>();
         stateMachine = new EnemyStateMachine(this);
     }
 
     private void Start()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
+        Condition.OnDie += OnDie;
     }
 
     private void Update()
@@ -42,4 +45,19 @@ public class Enemy : MonoBehaviour
     {
         stateMachine.PhysicsUpdate();
     }
+
+    void OnDie()
+    {
+        Animator.SetTrigger("Die");
+        EnemyManager.Instance.UnregisterEnemy(this);
+        enabled = false;
+        Invoke("Destroy", 5);
+    }
+
+    private void Destroy()
+    {
+        Destroy(gameObject);
+    }
+
+
 }

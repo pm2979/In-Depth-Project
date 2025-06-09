@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -17,9 +15,11 @@ public class Player : MonoBehaviour
 
     public ForceReceiver ForceReceiver { get; private set; }
 
-    public Health health { get; private set; }
+    public PlayerCondition Condition { get; private set; }
 
     [field: SerializeField] public Weapon Weapon { get; private set; }
+    [field: SerializeField] public Enemy Target { get; set; }
+
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
         Input = GetComponent<PlayerController>();
         Controller = GetComponent<CharacterController>();
         ForceReceiver = GetComponent<ForceReceiver>();
-        health = GetComponent<Health>();
+        Condition = GetComponent<PlayerCondition>();
 
         stateMachine = new PlayerStateMachine(this);
 
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
-        health.OnDie += OnDie;
+        Condition.OnDie += OnDie;
     }
 
     private void Update()

@@ -122,7 +122,17 @@ public class PlayerBaseState : IState
         forward.Normalize();
         right.Normalize();
 
-        return forward * stateMachine.MovementInput.y + right * stateMachine.MovementInput.x;
+        Vector3 moveTarget = forward * stateMachine.MovementInput.y + right * stateMachine.MovementInput.x;
+
+        if(moveTarget == Vector3.zero && stateMachine.Player.Target != null)
+        {
+            Vector3 dir = (stateMachine.Player.Target.transform.position - stateMachine.Player.transform.position);
+            return dir.normalized;
+        }
+        else
+        {
+            return moveTarget;
+        }
     }
 
     private void Move(Vector3 direction)

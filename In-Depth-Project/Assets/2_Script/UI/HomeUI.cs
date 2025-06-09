@@ -15,7 +15,6 @@ public class HomeUI : BaseUI
     public void OnClickStartButton()
     {
         GameManager.Instance.StartGame();
-        Debug.Log("dfdf");
     }
 
     protected override UIState GetUIState()

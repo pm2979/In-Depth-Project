@@ -28,4 +28,15 @@ public class PlayerWalkState : PlayerGroundState
 
         stateMachine.ChangeState(stateMachine.RunState);
     }
+
+    public override void Update()
+    {
+        base.Update();
+
+        if (stateMachine.MovementInput == Vector2.zero && stateMachine.Player.Target == null)
+        {
+            stateMachine.ChangeState(stateMachine.IdleState);
+            return;
+        }
+    }
 }

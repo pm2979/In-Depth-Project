@@ -11,6 +11,11 @@ public class PlayerGroundState : PlayerBaseState
     {
         base.Enter();
         StartAnimaion(stateMachine.Player.AnimationData.GroundParameterHash);
+
+        if (EnemyManager.Instance.GetNearestEnemy(stateMachine.Player.transform.position) != null)
+        {
+            stateMachine.Player.Target = EnemyManager.Instance.GetNearestEnemy(stateMachine.Player.transform.position);
+        }
     }
 
     public override void Exit()
@@ -23,7 +28,7 @@ public class PlayerGroundState : PlayerBaseState
     {
         base.Update();
 
-        if(stateMachine.IsAttacking)
+        if(stateMachine.IsAttacking || IsInAttackRange())
         {
             OnAttack();
             return;
@@ -44,7 +49,14 @@ public class PlayerGroundState : PlayerBaseState
     {
         if (stateMachine.MovementInput == Vector2.zero) return;
 
-        stateMachine.ChangeState(stateMachine.IdleState);
+        if(EnemyManager.Instance.GetNearestEnemy(stateMachine.Player.transform.position) != null)
+        {
+            stateMachine.Player.Target = EnemyManager.Instance.GetNearestEnemy(stateMachine.Player.transform.position);
+        }
+        else
+        {
+            stateMachine.ChangeState(stateMachine.IdleState);
+        }
 
         base.OnMovementCanceled(context);
     }
@@ -58,5 +70,15 @@ public class PlayerGroundState : PlayerBaseState
     protected virtual void OnAttack()
     {
         stateMachine.ChangeState(stateMachine.ComboAttackState);
+    }
+
+    protected bool IsInAttackRange()
+    {
+        if (stateMachine.MovementInput != Vector2.zero) return false;
+
+        if (stateMachine.Player.Target == null) return false;
+
+        float playerDistanceSqr = (stateMachine.Player.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
+        return playerDistanceSqr <= stateMachine.Player.Data.AttackData.AttackRange * stateMachine.Player.Data.AttackData.AttackRange;
     }
 }

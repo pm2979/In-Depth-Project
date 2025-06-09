@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +31,8 @@ public class PlayerAttackData
     [field: SerializeField] public List<AttackInfoData> AttackInfoDatas { get; private set; }
     public int GetAttackInfoCount() { return AttackInfoDatas.Count; }
     public AttackInfoData GetAttackInfoData(int index) { return AttackInfoDatas[index]; }
+
+    [field: SerializeField] public float AttackRange { get; private set; } = 1.5f;
 }
 
 [Serializable]
