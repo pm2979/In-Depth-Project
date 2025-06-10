@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour
     {
         Animator.SetTrigger("Die");
         EnemyManager.Instance.UnregisterEnemy(this);
+        GameManager.Instance.CurrencyManager.Add(Data.EnemyDropData.GetRandomCoin());
         enabled = false;
         Invoke("Destroy", 5);
     }

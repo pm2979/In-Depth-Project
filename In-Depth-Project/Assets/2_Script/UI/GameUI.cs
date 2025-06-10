@@ -4,22 +4,24 @@ using UnityEngine.UI;
 
 public class GameUI : BaseUI
 {
-    [SerializeField] public TextMeshProUGUI waveText;
+    [SerializeField] public TextMeshProUGUI currencyText;
     [SerializeField] public Slider hpSlider;
 
     private void Start()
     {
-        //UpdateHPSlider(1);
+        GameManager.Instance.CurrencyManager.LoadCurrency();
     }
 
     private void OnEnable()
     {
-        EventBus.Subscribe(EventType.HPUI, UpdateHPSlider);
+        EventBus.Subscribe(EventType.HpUI, UpdateHPSlider);
+        EventBus.Subscribe(EventType.CurrencyUI, UpdateCurrencyText);
     }
 
     private void OnDisable()
     {
-        EventBus.Unsubscribe(EventType.HPUI, UpdateHPSlider);
+        EventBus.Unsubscribe(EventType.HpUI, UpdateHPSlider);
+        EventBus.Unsubscribe(EventType.CurrencyUI, UpdateCurrencyText);
     }
 
     public void UpdateHPSlider(float percentage)
@@ -27,9 +29,9 @@ public class GameUI : BaseUI
         hpSlider.value = percentage;
     }
 
-    public void UpdateWaveText(int wave)
+    public void UpdateCurrencyText(float coin)
     {
-        waveText.text = wave.ToString();
+        currencyText.text = coin.ToString();
     }
 
     protected override UIState GetUIState()

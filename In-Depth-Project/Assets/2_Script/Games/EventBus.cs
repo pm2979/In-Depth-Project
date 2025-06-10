@@ -44,5 +44,6 @@ public class EventBus
 
 public enum EventType
 {
-   HPUI,
+   HpUI,
+   CurrencyUI
 }

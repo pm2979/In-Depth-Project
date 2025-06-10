@@ -3,16 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    [Tooltip("UI æ¿ ¿Ã∏ß")]
     public string uiSceneName = "UI";
     bool isLoaded = false;
-    [SerializeField] private UIManager uiManager;
+    private UIManager uiManager;
     public Player Player { get; private set; }
+    public CurrencyManager CurrencyManager { get; private set; }
 
     public override void Awake()
     {
         base.Awake();
         Player = FindObjectOfType<Player>();
+        CurrencyManager = GetComponentInChildren<CurrencyManager>();
         Time.timeScale = 0.0f;
         LoadUI();
     }
@@ -20,8 +21,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         uiManager = FindObjectOfType<UIManager>();
-        
-        if(uiManager == null ) 
+        if(uiManager == null) 
         { 
             StartGame();
         }

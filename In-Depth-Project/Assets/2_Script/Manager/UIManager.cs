@@ -3,7 +3,7 @@ using UnityEngine;
 public enum UIState
 {
     Home,
-    Game
+    Game,
 }
 
 public class UIManager : MonoBehaviour
@@ -31,11 +31,6 @@ public class UIManager : MonoBehaviour
     public void SetGameOver()
     {
         //ChangeState(UIState.GameOver);
-    }
-
-    public void ChangeWave(int waveIndex)
-    {
-        gameUI.UpdateWaveText(waveIndex);
     }
 
     public void ChangePlayerHP(float currentHP, float maxHP)

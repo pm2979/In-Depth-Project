@@ -26,6 +26,7 @@ public class InventoryUI : MonoBehaviour
 
     private ItemData selectedItem;
     private UISlot selectedSlot;
+    private CurrencyManager currencyManager;
 
     private void Start()
     {
@@ -33,6 +34,7 @@ public class InventoryUI : MonoBehaviour
         UpdateWeaponSlotsUI();
         ClearSelctedItemWindow();
         inventoryPanel.SetActive(false);
+        currencyManager = GameManager.Instance.CurrencyManager;
     }
 
     private void UpdateWeaponSlotsUI() // WeaponUI 초기 설정
@@ -141,10 +143,12 @@ public class InventoryUI : MonoBehaviour
 
     public void OnPurchaseButton()
     {
-        // 돈 소모
-        selectedSlot.quantity++;
-        useBtn.SetActive(true);
-        UpdateUI();
+        if(currencyManager.Spend(selectedItem.price))
+        {
+            selectedSlot.quantity++;
+            useBtn.SetActive(true);
+            UpdateUI();
+        }
     }
 
     public void OnEnhanceButton()

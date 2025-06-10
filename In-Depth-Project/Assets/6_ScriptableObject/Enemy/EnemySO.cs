@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Enemy", menuName = "Characters/Enemy")]
@@ -11,4 +12,20 @@ public class EnemySO : ScriptableObject
     [field: SerializeField] public PlayerGroundData GroundData { get; private set; }
     [field: SerializeField][field: Range(0f, 1f)] public float Dealing_Start_TransitionTime { get; private set; }
     [field: SerializeField][field: Range(0f, 1f)] public float Dealing_End_TransitionTime { get; private set; }
+    [field: SerializeField] public EnemyDropData EnemyDropData { get; private set; }
+}
+
+[Serializable]
+public class EnemyDropData
+{
+    [SerializeField] private int minCoin = 1;  // 최소 코인
+    [SerializeField] private int maxCoin = 5;  // 최대 코인
+
+    /// <summary>
+    /// 실제 드롭 시 호출해서 랜덤 값을 얻어옵니다.
+    /// </summary>
+    public int GetRandomCoin()
+    {
+        return UnityEngine.Random.Range(minCoin, maxCoin + 1);
+    }
 }
