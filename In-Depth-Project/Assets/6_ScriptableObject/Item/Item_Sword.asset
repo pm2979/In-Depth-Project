@@ -32,5 +32,5 @@ MonoBehaviour:
   - level: 2
     type: 0
     power: 3
-    price: 3
-  currentEnhancementLevel: 0
+    price: 0
+  currentEnhancementLevel: 2
