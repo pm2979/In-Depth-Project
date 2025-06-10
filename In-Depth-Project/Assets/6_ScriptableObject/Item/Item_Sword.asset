@@ -13,11 +13,24 @@ MonoBehaviour:
   m_Name: Item_Sword
   m_EditorClassIdentifier: 
   displayName: "\uAC80"
-  description: "\uACF5\uACA9 \uC18D\uB3C4\uB97C \uC62C\uB824\uC8FC\uB294 \uAC80"
+  description: "\uACF5\uACA9\uB825\uC744 \uC62C\uB824\uC8FC\uB294 \uAC80"
   type: 0
   icon: {fileID: 21300000, guid: 4f2f320a217307a48a107491b1d17ebb, type: 3}
-  dropPrefab: {fileID: 0}
   canStack: 0
   maxStackAmount: 0
   consumables: []
-  equipPrefab: {fileID: 0}
+  price: 0
+  equipLevels:
+  - level: 0
+    type: 0
+    power: 1
+    price: 1
+  - level: 1
+    type: 0
+    power: 2
+    price: 2
+  - level: 2
+    type: 0
+    power: 3
+    price: 3
+  currentEnhancementLevel: 0

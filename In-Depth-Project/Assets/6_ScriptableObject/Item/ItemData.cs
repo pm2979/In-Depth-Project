@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemType
@@ -7,11 +8,25 @@ public enum ItemType
     Consumable,
 }
 
+public enum AbilityType
+{
+    Force
+}
+
 [Serializable]
 public class ItemDataConsumable
 {
     public ConditionType type;
     public float value;
+}
+
+[System.Serializable]
+public class EnhancementLevelData
+{
+    public int level;
+    public AbilityType type;
+    public int power;
+    public int price;
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "Item")]
@@ -32,6 +47,8 @@ public class ItemData : ScriptableObject
     public int price;
 
     [Header("Equip")]
-    public GameObject equipPrefab;
+    public List<EnhancementLevelData> equipLevels;
+    public int currentEnhancementLevel = 0;
+
 }
 

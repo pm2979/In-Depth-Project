@@ -6,8 +6,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Collider myCollider;
 
     private int damage;
-    private int weaponPower;
     private float knockback;
+    private int weaponPower;
 
     private List<Collider> alreadyColliderWith = new List<Collider>();
 

@@ -4,7 +4,6 @@ using UnityEngine;
 [Serializable]
 public class Condition
 {
-    public ConditionType ConditionType;
     public float maxValue;
     public float curValue;
 
@@ -16,6 +15,11 @@ public class Condition
     public void Subtract(float value) // - °ª
     {
         curValue = Mathf.Max(curValue - value, 0f);
+    }
+
+    public float PercentValue()
+    {
+        return curValue / maxValue;
     }
 }
 
