@@ -7,11 +7,12 @@ public class GameManager : Singleton<GameManager>
     public string uiSceneName = "UI";
     bool isLoaded = false;
     [SerializeField] private UIManager uiManager;
+    public Player Player { get; private set; }
 
     public override void Awake()
     {
         base.Awake();
-
+        Player = FindObjectOfType<Player>();
         Time.timeScale = 0.0f;
         LoadUI();
     }
@@ -28,7 +29,6 @@ public class GameManager : Singleton<GameManager>
 
     public void StartGame()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1.0f;
         uiManager.SetPlayGame();
     }
