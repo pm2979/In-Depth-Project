@@ -16,21 +16,15 @@ public class UISlot : MonoBehaviour
         inventoryUI = GetComponentInParent<InventoryUI>();
     }
 
-    public void Set(ItemData item, int quantity)
+    public void Set()
     {
-        this.item = item;
-        this.quantity = quantity;
-
-        if (item != null)
-        {
-            icon.gameObject.SetActive(true);
-            icon.sprite = item.icon;
-            quantityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
-        }
+        icon.gameObject.SetActive(true);
+        icon.sprite = item.icon;
+        quantityText.text = quantity >= 1 ? quantity.ToString() : string.Empty;
     }
 
     public void OnClickButton() // ½½·Ô Å¬¸¯
     {
-        inventoryUI.SelectItem(item);
+        inventoryUI.SelectItem(this);
     }
 }

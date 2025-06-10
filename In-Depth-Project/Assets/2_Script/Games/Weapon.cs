@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Collider myCollider;
 
     private int damage;
+    private int weaponPower;
     private float knockback;
 
     private List<Collider> alreadyColliderWith = new List<Collider>();
@@ -24,7 +25,14 @@ public class Weapon : MonoBehaviour
 
         if (other.TryGetComponent(out ITakeDamage health))
         {
-            health.TakeDamage(damage);
+            if(gameObject.GetComponentInParent<Player>() != null)
+            {
+                health.TakeDamage(damage + weaponPower);
+            }
+            else
+            {
+                health.TakeDamage(damage);
+            }
         }
 
         if (other.TryGetComponent(out ForceReceiver forceReceiver))
@@ -38,5 +46,10 @@ public class Weapon : MonoBehaviour
     {
         this.damage = damage;
         this.knockback = knockback;
+    }
+
+    public void SetWeaponPower(int power)
+    {
+        weaponPower = power;
     }
 }                                                                      

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public enum ItemType1
+public enum ItemType
 {
     Equipable,
     Consumable,
@@ -14,20 +14,13 @@ public class ItemDataConsumable
     public float value;
 }
 
-[Serializable]
-public class EquipItemCost
-{
-    public ItemData item;  // 필요한 아이템
-    public int amount;     // 필요한 수량
-}
-
 [CreateAssetMenu(fileName = "Item", menuName = "Item")]
 public class ItemData : ScriptableObject
 {
     [Header("Info")]
     public string displayName;
     public string description;
-    public ItemType1 type;
+    public ItemType type;
     public Sprite icon;
     public GameObject dropPrefab;
 

@@ -8,7 +8,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject itemSlot;
 
     [Header("장비 패널")]
-    [SerializeField] private List<ItemData> weaponData;
+    [SerializeField] private List<UISlot> weaponSlots;
 
     [Header("아이템 패널")]
     [SerializeField] private List<ItemData> itemData;
@@ -24,15 +24,27 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject purchaseBtn;
     [SerializeField] private GameObject enhanceBtn;
 
+    private ItemData selectedItem;
+    private UISlot selectedSlot;
 
     private void Start()
     {
         UpdateItemSlotsUI();
+        UpdateWeaponSlotsUI();
         ClearSelctedItemWindow();
         inventoryPanel.SetActive(false);
     }
 
-    private void UpdateItemSlotsUI() // UI 초기 설정
+    private void UpdateWeaponSlotsUI() // WeaponUI 초기 설정
+    {
+        for (int i = 0; i < weaponSlots.Count; i++)
+        {
+            // 데이터 설정
+            weaponSlots[i].Set();
+        }
+    }
+
+    private void UpdateItemSlotsUI() // ItemUI 초기 설정
     {
         uiSlots = new List<UISlot>();
 
@@ -42,11 +54,17 @@ public class InventoryUI : MonoBehaviour
             UISlot slot = Instantiate(itemSlot, itemSlotsParent)
                              .GetComponent<UISlot>();
             // 데이터 설정
-            slot.Set(itemData[i], 0);
+            slot.item = itemData[i];
+            slot.Set();
 
             // 리스트에 추가
             uiSlots.Add(slot);
         }
+    }
+
+    void UpdateUI() // UI 업데이트
+    {
+        selectedSlot.Set();
     }
 
     public void OnClickInventoryButton() // 인벤토리 오픈
@@ -80,22 +98,57 @@ public class InventoryUI : MonoBehaviour
         enhanceBtn.SetActive(false);
     }
 
-    public void SelectItem(ItemData itemData) // 인벤토리 아이템 UI 클릭
+    public void SelectItem(UISlot uiSlot) // 인벤토리 아이템 UI 클릭
     {
-        selectedItemName.text = itemData.displayName;
-        selectedItemDescription.text = itemData.description;
+        selectedSlot = uiSlot;
+        selectedItem = uiSlot.item;
+
+        selectedItemName.text = selectedItem.displayName;
+        selectedItemDescription.text = selectedItem.description;
 
         selectedStatName.text = string.Empty;
         selectedStatValue.text = string.Empty;
 
-        for (int i = 0; i < itemData.consumables.Length; i++)
+        for (int i = 0; i < selectedItem.consumables.Length; i++)
         {
-            selectedStatName.text += itemData.consumables[i].type.ToString() + "\n";
-            selectedStatValue.text += itemData.consumables[i].value.ToString() + "\n";
+            selectedStatName.text += selectedItem.consumables[i].type.ToString() + "\n";
+            selectedStatValue.text += selectedItem.consumables[i].value.ToString() + "\n";
         }
 
-        useBtn.SetActive(itemData.type == ItemType1.Consumable);
-        purchaseBtn.SetActive(itemData.type == ItemType1.Consumable);
-        enhanceBtn.SetActive(itemData.type == ItemType1.Equipable);
+        useBtn.SetActive(selectedItem.type == ItemType.Consumable && uiSlot.quantity > 0);
+        purchaseBtn.SetActive(selectedItem.type == ItemType.Consumable);
+        enhanceBtn.SetActive(selectedItem.type == ItemType.Equipable);
+    }
+
+    public void OnUseButton()
+    {
+        if (selectedItem.type == ItemType.Consumable)
+        {
+            for (int i = 0; i < selectedItem.consumables.Length; i++)
+            {
+                switch (selectedItem.consumables[i].type)
+                {
+                    case ConditionType.Hp:
+                        // 회복 효과
+                        break;
+                }
+            }
+            selectedSlot.quantity--;
+            useBtn.SetActive(selectedSlot.quantity > 0);
+            UpdateUI();
+        }
+    }
+
+    public void OnPurchaseButton()
+    {
+        // 돈 소모
+        selectedSlot.quantity++;
+        useBtn.SetActive(true);
+        UpdateUI();
+    }
+
+    public void OnEnhanceButton()
+    {
+
     }
 }

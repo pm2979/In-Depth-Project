@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    [Tooltip("ºôµå ¼¼ÆÃ¿¡ Ãß°¡ÇÑ UI ¾À ÀÌ¸§")]
+    [Tooltip("UI ¾À ÀÌ¸§")]
     public string uiSceneName = "UI";
     bool isLoaded = false;
     [SerializeField] private UIManager uiManager;
@@ -36,7 +36,7 @@ public class GameManager : Singleton<GameManager>
     public void LoadUI()
     {
         if (isLoaded) return;
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(uiSceneName, LoadSceneMode.Additive)
+        SceneManager.LoadSceneAsync(uiSceneName, LoadSceneMode.Additive)
             .completed += op => {
                 isLoaded = true;
                 Debug.Log($"UI ¾À '{uiSceneName}' ·Îµù ¿Ï·á");
@@ -46,7 +46,7 @@ public class GameManager : Singleton<GameManager>
     public void UnloadUI()
     {
         if (!isLoaded) return;
-        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(uiSceneName)
+        SceneManager.UnloadSceneAsync(uiSceneName)
             .completed += op => {
                 isLoaded = false;
                 Debug.Log($"UI ¾À '{uiSceneName}' ¾ð·Îµù ¿Ï·á");

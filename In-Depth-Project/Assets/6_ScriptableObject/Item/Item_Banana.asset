@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3318f11cd77826e4cbb3aa305ad792cd, type: 3}
-  m_Name: Apple
+  m_Name: Item_Banana
   m_EditorClassIdentifier: 
-  displayName: "\uC0AC\uACFC"
+  displayName: "\uBC14\uB098\uB098"
   description: "\uB9DB\uC788\uB2E4. \uCCB4\uB825\uC744 \uD68C\uBCF5\uD55C\uB2E4."
   type: 1
-  icon: {fileID: 21300000, guid: 2026503b3a91065448194c09645650a4, type: 3}
+  icon: {fileID: 21300000, guid: 58a8b261d4ed8184783652e21247d2e1, type: 3}
   dropPrefab: {fileID: 0}
   canStack: 1
-  maxStackAmount: 50
+  maxStackAmount: 10
   consumables:
   - type: 0
-    value: 10
+    value: 20
   equipPrefab: {fileID: 0}
