@@ -33,4 +33,4 @@ MonoBehaviour:
     type: 0
     power: 5
     price: 0
-  currentEnhancementLevel: 2
+  currentEnhancementLevel: 0

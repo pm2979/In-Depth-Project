@@ -1,11 +1,5 @@
 using UnityEngine;
 
-public enum UIState
-{
-    Home,
-    Game,
-}
-
 public class UIManager : MonoBehaviour
 {
     HomeUI homeUI;

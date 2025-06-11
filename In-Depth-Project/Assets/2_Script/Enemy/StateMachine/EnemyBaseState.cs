@@ -62,11 +62,11 @@ public class EnemyBaseState : IState
         float movementSpeed = GetMovementSpeed();
 
         // 입력에 의한 포지션 변화 + ForceReceiver의 변화 값 적용
-        stateMachine.Enemy.Controller.Move(
-            ((direction * movementSpeed)
-            + stateMachine.Enemy.ForceReceiver.Movement)
-            * Time.deltaTime
-        );
+            stateMachine.Enemy.Controller.Move(
+                ((direction * movementSpeed)
+                + stateMachine.Enemy.ForceReceiver.Movement)
+                * Time.deltaTime
+            );
     }
 
     private float GetMovementSpeed()

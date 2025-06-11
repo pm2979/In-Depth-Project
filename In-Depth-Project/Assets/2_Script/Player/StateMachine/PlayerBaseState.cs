@@ -57,6 +57,9 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
+        if(stateMachine.Player.Target == null || stateMachine.Player.Target.IsDie == true)
+            stateMachine.Player.Target = EnemyManager.Instance.GetNearestEnemy(stateMachine.Player.transform.position);
+
         Move();
     }
 

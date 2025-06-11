@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
 
     [field: SerializeField] public Weapon Weapon { get; private set; }
 
+    public bool IsDie { get; private set; } = false;
+
     private void Awake()
     {
         AnimationData.Initialize();
@@ -37,21 +39,22 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        //stateMachine.HandleINput();
-        stateMachine.Update();
+        if(!IsDie)
+            stateMachine.Update();
     }
 
     private void FixedUpdate()
     {
-        stateMachine.PhysicsUpdate();
+        if (!IsDie)
+            stateMachine.PhysicsUpdate();
     }
 
     void OnDie()
     {
         Animator.SetTrigger("Die");
 
-        EnemyManager.Instance.UnregisterEnemy(this);
-        enabled = false;
+        EnemyManager.Instance.RemoveEnemyOnDeath(this);
+        IsDie = true;
         Controller.enabled = false;
         Invoke("Destroy", 5);
         

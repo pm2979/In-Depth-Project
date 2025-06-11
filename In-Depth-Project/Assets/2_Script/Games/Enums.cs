@@ -1,18 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Enums : MonoBehaviour
+public enum ItemType
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Equipable,
+    Consumable,
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public enum AbilityType
+{
+    Force
+}
+
+public enum ConditionType
+{
+    Hp,
+    EXP
+}
+
+public enum UIState
+{
+    Home,
+    Game,
+}
+
+public enum EventType
+{
+    HpUI,
+    CurrencyUI
 }

@@ -21,9 +21,6 @@ public class EnemyDropData
     [SerializeField] private int minCoin = 1;  // 최소 코인
     [SerializeField] private int maxCoin = 5;  // 최대 코인
 
-    /// <summary>
-    /// 실제 드롭 시 호출해서 랜덤 값을 얻어옵니다.
-    /// </summary>
     public int GetRandomCoin()
     {
         return UnityEngine.Random.Range(minCoin, maxCoin + 1);

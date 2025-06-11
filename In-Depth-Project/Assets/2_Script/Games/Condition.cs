@@ -23,8 +23,3 @@ public class Condition
     }
 }
 
-public enum ConditionType
-{
-    Hp,
-    EXP
-}

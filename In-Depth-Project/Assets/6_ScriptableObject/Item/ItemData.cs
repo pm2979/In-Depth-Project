@@ -2,17 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType
-{
-    Equipable,
-    Consumable,
-}
-
-public enum AbilityType
-{
-    Force
-}
-
 [Serializable]
 public class ItemDataConsumable
 {

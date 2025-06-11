@@ -41,9 +41,3 @@ public class EventBus
         }
     }
 }
-
-public enum EventType
-{
-   HpUI,
-   CurrencyUI
-}
