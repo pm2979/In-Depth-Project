@@ -73,10 +73,15 @@ public class PlayerComboAttackState : PlayerAttackState
         }
         else
         {
-            if(alreadyAppliedCombo)
+            if (alreadyAppliedCombo)
             {
                 stateMachine.ComboIndex = attackInfoData.ComboStateIndex;
                 stateMachine.ChangeState(stateMachine.ComboAttackState);
+            }
+            else if(!EnemyManager.Instance.ActiveEnemyNull())
+            {
+                stateMachine.Player.Target = null;
+                stateMachine.ChangeState(stateMachine.IdleState);
             }
             else
             {
@@ -91,8 +96,7 @@ public class PlayerComboAttackState : PlayerAttackState
 
         if(attackInfoData.ComboStateIndex == -1) return;
 
-        if(!stateMachine.IsAttacking && !(stateMachine.Player.Target != null)) return;
-
+        if(!stateMachine.IsAttacking && !IsInAttackRange()) return;
         alreadyAppliedCombo = true;
 
         

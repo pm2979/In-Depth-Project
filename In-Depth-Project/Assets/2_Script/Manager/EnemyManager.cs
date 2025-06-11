@@ -3,39 +3,42 @@ using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    public List<Enemy> ActiveEnemies = new List<Enemy>();
+    public List<Enemy> activeEnemies = new List<Enemy>();
 
     public void RegisterEnemy(Enemy enemy)
     {
-        ActiveEnemies.Add(enemy);
+        activeEnemies.Add(enemy);
     }
 
     public void UnregisterEnemy(Enemy enemy)
     {
-        ActiveEnemies.Remove(enemy);
+        GetNearestEnemy(GameManager.Instance.Player.transform.position);
+        activeEnemies.Remove(enemy);
     }
 
-    /// <summary>
-    /// 플레이어 위치 기준으로 가장 가까운 적을 찾습니다.
-    /// </summary>
-    public Enemy GetNearestEnemy(Vector3 fromPosition)
+    public Enemy GetNearestEnemy(Vector3 fromPosition) // 플레이어 위치 기준으로 가장 가까운 적을 찾기
     {
         float minSqr = float.MaxValue;
         Enemy nearest = null;
 
-        for (int i = 0; i < ActiveEnemies.Count; i++)
+        for (int i = 0; i < activeEnemies.Count; i++)
         {
-            Enemy e = ActiveEnemies[i];
-            // 혹시 이미 파괴된 적 참조가 있으면 걸러내기
-            if (e == null) { ActiveEnemies.RemoveAt(i--); continue; }
+            Enemy enemy = activeEnemies[i];
 
-            float sqr = (e.transform.position - fromPosition).sqrMagnitude;
+            if (enemy == null) { activeEnemies.RemoveAt(i--); continue; } // 혹시 이미 파괴된 적 참조가 있으면 걸러내기
+
+            float sqr = (enemy.transform.position - fromPosition).sqrMagnitude;
             if (sqr < minSqr)
             {
                 minSqr = sqr;
-                nearest = e;
+                nearest = enemy;
             }
         }
         return nearest;
+    }
+
+    public bool ActiveEnemyNull()
+    {
+        return activeEnemies == null;
     }
 }

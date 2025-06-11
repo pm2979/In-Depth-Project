@@ -188,4 +188,14 @@ public class PlayerBaseState : IState
         }
     }
 
+    protected bool IsInAttackRange() // 공격 사거리 확인
+    {
+        if (stateMachine.MovementInput != Vector2.zero) return false;
+
+        if (stateMachine.Player.Target == null) return false;
+
+        float playerDistanceSqr = (stateMachine.Player.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
+        return playerDistanceSqr <= stateMachine.Player.Data.AttackData.AttackRange * stateMachine.Player.Data.AttackData.AttackRange;
+    }
+
 }

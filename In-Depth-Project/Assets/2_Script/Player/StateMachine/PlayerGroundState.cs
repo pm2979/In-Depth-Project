@@ -71,14 +71,4 @@ public class PlayerGroundState : PlayerBaseState
     {
         stateMachine.ChangeState(stateMachine.ComboAttackState);
     }
-
-    protected bool IsInAttackRange()
-    {
-        if (stateMachine.MovementInput != Vector2.zero) return false;
-
-        if (stateMachine.Player.Target == null) return false;
-
-        float playerDistanceSqr = (stateMachine.Player.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
-        return playerDistanceSqr <= stateMachine.Player.Data.AttackData.AttackRange * stateMachine.Player.Data.AttackData.AttackRange;
-    }
 }

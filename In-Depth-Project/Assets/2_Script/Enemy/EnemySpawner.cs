@@ -17,9 +17,8 @@ public class EnemySpawner : MonoBehaviour
             SpawnInBox();
     }
 
-    void SpawnInBox()
+    void SpawnInBox() // 적 스폰 범위
     {
-        // 각 축별로 -halfExtents ~ +halfExtents 사이 랜덤
         Vector3 randomOffset = new Vector3(
             Random.Range(-halfExtents.x, halfExtents.x),
             Random.Range(-halfExtents.y, halfExtents.y),

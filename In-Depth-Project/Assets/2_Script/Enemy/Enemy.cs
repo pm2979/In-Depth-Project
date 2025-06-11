@@ -49,10 +49,13 @@ public class Enemy : MonoBehaviour
     void OnDie()
     {
         Animator.SetTrigger("Die");
+
         EnemyManager.Instance.UnregisterEnemy(this);
-        GameManager.Instance.CurrencyManager.Add(Data.EnemyDropData.GetRandomCoin());
         enabled = false;
+        Controller.enabled = false;
         Invoke("Destroy", 5);
+        
+        GameManager.Instance.CurrencyManager.Add(Data.EnemyDropData.GetRandomCoin());
     }
 
     private void Destroy()
